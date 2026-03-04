@@ -1,0 +1,31 @@
+
+> frontend@0.0.0 build
+> vite build
+
+[36mvite v7.3.1 [32mbuilding client environment for production...[36m[39m
+transforming...
+[32m✓[39m 23 modules transformed.
+[31m✗[39m Build failed in 485ms
+[31merror during build:
+[31m[vite:esbuild] Transform failed with 1 error:
+E:/projects/NeuroSpark AI/frontend/src/pages/Practice.jsx:515:39: ERROR: Unterminated string literal[31m
+file: [36mE:/projects/NeuroSpark AI/frontend/src/pages/Practice.jsx:515:39[31m
+[33m
+[33mUnterminated string literal[33m
+513 |                    margin: "0 0 20px 0",
+514 |                    fontSize: "1.3rem",
+515 |                    color: COLORS.white",
+    |                                         ^
+516 |                    display: "flex",
+517 |                  alignItems: "center",
+[31m
+    at failureErrorWithLog (E:\projects\NeuroSpark AI\frontend\node_modules\esbuild\lib\main.js:1467:15)
+    at E:\projects\NeuroSpark AI\frontend\node_modules\esbuild\lib\main.js:736:50
+    at responseCallbacks.<computed> (E:\projects\NeuroSpark AI\frontend\node_modules\esbuild\lib\main.js:603:9)
+    at handleIncomingPacket (E:\projects\NeuroSpark AI\frontend\node_modules\esbuild\lib\main.js:658:12)
+    at Socket.readFromStdout (E:\projects\NeuroSpark AI\frontend\node_modules\esbuild\lib\main.js:581:7)
+    at Socket.emit (node:events:518:28)
+    at addChunk (node:internal/streams/readable:561:12)
+    at readableAddChunkPushByteMode (node:internal/streams/readable:512:3)
+    at Readable.push (node:internal/streams/readable:392:5)
+    at Pipe.onStreamRead (node:internal/stream_base_commons:189:23)[39m
