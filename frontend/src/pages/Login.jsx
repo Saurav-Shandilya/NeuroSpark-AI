@@ -25,18 +25,19 @@ const styles = `
     background: linear-gradient(135deg, #050811 0%, #0A0E1A 100%);
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     padding: 20px;
+    overflow-y: auto;
   }
 
   .auth-card {
-    background: rgba(255, 255, 255, 0.03);
+    background: rgba(255, 255, 255, 0.02);
     backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 28px;
-    padding: 42px 38px;
-    width: 100%;
-    max-width: 420px;
-    box-shadow: 0 25px 50px rgba(4, 86, 172, 0.2);
-    animation: slideUp 0.45s cubic-bezier(0.22,1,0.36,1);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: clamp(20px, 5vw, 28px);
+    padding: clamp(30px, 8vw, 42px) clamp(20px, 6vw, 38px);
+    width: min(100%, 420px);
+    box-shadow: 0 25px 50px rgba(4, 86, 172, 0.15);
+    animation: slideUp 0.5s cubic-bezier(0.22,1,0.36,1);
+    margin: auto;
   }
 
   @keyframes slideUp {
@@ -214,6 +215,39 @@ const styles = `
     padding: 0;
   }
   .bottom-link:hover { text-decoration: underline; }
+
+  .back-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    color: #94A3B8;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-decoration: none;
+    margin-bottom: 20px;
+    width: fit-content;
+  }
+
+  .back-btn:hover {
+    background: rgba(255, 255, 255, 0.08);
+    color: #FCFEFC;
+    border-color: rgba(255, 255, 255, 0.2);
+    transform: translateX(-4px);
+  }
+
+  @media (max-width: 640px) {
+    .back-btn {
+      padding: 6px 12px;
+      font-size: 13px;
+      margin-bottom: 16px;
+    }
+  }
 `;
 
 function EyeIcon({ open }) {
@@ -251,7 +285,7 @@ function Login() {
         navigate("/dashboard");
       }
     } catch (err) {
-      alert(err.response?.data?.message || "Something went wrong");
+      alert(err.response?.data?.message || "check password and email address");
     }
   };
 
@@ -263,7 +297,7 @@ function Login() {
       localStorage.setItem("token", res.data.token);
       navigate("/dashboard");
     } catch (err) {
-      alert(err.response?.data?.message || "Google Login failed");
+      alert(err.response?.data?.message || "check password and email address");
     }
   };
 
@@ -276,6 +310,13 @@ function Login() {
       <style>{styles}</style>
       <div className="auth-bg">
         <div className="auth-card">
+          <button className="back-btn" onClick={() => navigate("/")}>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <line x1="19" y1="12" x2="5" y2="12"></line>
+              <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+            Back to Home
+          </button>
 
           <h1 className="auth-title">
             {isSignup ? "Create Account" : "Welcome Back 👋"}

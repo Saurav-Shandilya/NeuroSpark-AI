@@ -18,10 +18,10 @@ router.post("/signup", async (req, res) => {
 router.post("/login", async (req, res) => {
   const { email, password } = req.body;
   const user = await User.findOne({ email });
-  if (!user) return res.status(400).json({ message: "User not found" });
+  if (!user) return res.status(400).json({ message: "check password and email address" });
 
   const isMatch = await bcrypt.compare(password, user.password);
-  if (!isMatch) return res.status(400).json({ message: "Wrong password" });
+  if (!isMatch) return res.status(400).json({ message: "check password and email address" });
 
   const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
   res.json({ token });

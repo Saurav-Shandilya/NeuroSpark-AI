@@ -91,7 +91,7 @@ function Layout() {
                 <div style={{
                     maxWidth: "1400px",
                     margin: "0 auto",
-                    padding: "16px 40px",
+                    padding: "16px 5%",
                     display: "flex",
                     justifyContent: "space-between",
                     alignItems: "center"
@@ -102,90 +102,80 @@ function Layout() {
                         style={{
                             display: "flex",
                             alignItems: "center",
-                            gap: "12px",
+                            gap: "8px",
                             cursor: "pointer",
-                            transition: "transform 0.3s ease"
+                            transition: "transform 0.3s ease",
+                            flexShrink: 0
                         }}
                         onMouseEnter={(e) => e.currentTarget.style.transform = "scale(1.02)"}
                         onMouseLeave={(e) => e.currentTarget.style.transform = "scale(1)"}
                     >
                         {/* Logo Icon */}
                         <div style={{
-                            width: "40px",
-                            height: "40px",
-                            borderRadius: "12px",
+                            width: "clamp(32px, 5vw, 40px)",
+                            height: "clamp(32px, 5vw, 40px)",
+                            borderRadius: "10px",
                             background: `linear-gradient(135deg, ${COLORS.primary} 0%, ${COLORS.primaryLight} 100%)`,
                             display: "flex",
                             alignItems: "center",
                             justifyContent: "center",
-                            fontSize: "1.5rem",
+                            fontSize: "1.2rem",
                             boxShadow: `0 4px 15px rgba(4, 86, 172, 0.4)`
                         }}>
                             🧠
                         </div>
-                        <div>
+                        <div className="logo-text-container">
                             <h1 style={{
                                 margin: 0,
-                                fontSize: "1.4rem",
+                                fontSize: "clamp(1.1rem, 4vw, 1.4rem)",
                                 fontWeight: "700",
                                 background: `linear-gradient(135deg, ${COLORS.white} 0%, ${COLORS.primaryLight} 100%)`,
                                 WebkitBackgroundClip: "text",
                                 WebkitTextFillColor: "transparent",
                                 backgroundClip: "text",
-                                letterSpacing: "-0.02em"
+                                letterSpacing: "-0.02em",
+                                whiteSpace: "nowrap"
                             }}>
                                 NeuroSpark AI
                             </h1>
-                            <p style={{
+                            <p className="hide-mobile" style={{
                                 margin: 0,
-                                fontSize: "0.75rem",
+                                fontSize: "0.7rem",
                                 color: COLORS.gray,
                                 letterSpacing: "0.5px"
                             }}>
-                                Adaptive Learning Platform
+                                Adaptive Learning
                             </p>
                         </div>
                     </div>
 
                     {/* Desktop Navigation */}
-                    <nav style={{
+                    <nav className="desktop-nav" style={{
                         display: "flex",
                         alignItems: "center",
-                        gap: "8px"
+                        gap: "6px"
                     }}>
                         {navItems.map((item) => (
                             <button
                                 key={item.path}
                                 onClick={() => navigate(item.path)}
                                 style={{
-                                    padding: "10px 20px",
+                                    padding: "8px 16px",
                                     borderRadius: "10px",
                                     border: "none",
                                     background: isActive(item.path)
                                         ? `linear-gradient(135deg, ${COLORS.primary}40, ${COLORS.primary}20)`
                                         : "transparent",
                                     color: isActive(item.path) ? COLORS.white : COLORS.gray,
-                                    fontSize: "0.95rem",
+                                    fontSize: "0.9rem",
                                     fontWeight: isActive(item.path) ? "600" : "500",
                                     cursor: "pointer",
                                     transition: "all 0.3s ease",
                                     display: "flex",
                                     alignItems: "center",
-                                    gap: "8px",
+                                    gap: "6px",
                                     position: "relative",
                                     overflow: "hidden"
-                                }}
-                                onMouseEnter={(e) => {
-                                    if (!isActive(item.path)) {
-                                        e.target.style.color = COLORS.white;
-                                        e.target.style.background = "rgba(255,255,255,0.05)";
-                                    }
-                                }}
-                                onMouseLeave={(e) => {
-                                    if (!isActive(item.path)) {
-                                        e.target.style.color = COLORS.gray;
-                                        e.target.style.background = "transparent";
-                                    }
                                 }}
                             >
                                 <span>{item.icon}</span>
@@ -204,85 +194,47 @@ function Layout() {
                             </button>
                         ))}
 
-                        {/* Divider */}
-                        <div style={{
-                            width: "1px",
-                            height: "24px",
-                            background: "rgba(255,255,255,0.1)",
-                            margin: "0 8px"
-                        }} />
+                        <div style={{ width: "1px", height: "20px", background: "rgba(255,255,255,0.1)", margin: "0 6px" }} />
 
-                        {/* User Profile & Logout */}
-                        <div style={{
-                            display: "flex",
-                            alignItems: "center",
-                            gap: "12px"
-                        }}>
-                            <div style={{
-                                width: "36px",
-                                height: "36px",
-                                borderRadius: "50%",
-                                background: `linear-gradient(135deg, ${COLORS.primary}30, ${COLORS.primaryLight}20)`,
-                                border: `2px solid ${COLORS.primary}50`,
+                        <button
+                            onClick={handleLogout}
+                            style={{
+                                padding: "8px 16px",
+                                background: "rgba(239, 68, 68, 0.1)",
+                                color: COLORS.danger,
+                                border: `1px solid ${COLORS.danger}30`,
+                                borderRadius: "10px",
+                                fontSize: "0.85rem",
+                                fontWeight: "600",
+                                cursor: "pointer",
+                                transition: "all 0.3s ease",
                                 display: "flex",
                                 alignItems: "center",
-                                justifyContent: "center",
-                                cursor: "pointer",
-                                transition: "all 0.3s ease"
-                            }}>
-                                <span style={{ fontSize: "1rem" }}>👤</span>
-                            </div>
-
-                            <button
-                                onClick={handleLogout}
-                                style={{
-                                    padding: "10px 20px",
-                                    background: "rgba(239, 68, 68, 0.1)",
-                                    color: COLORS.danger,
-                                    border: `1px solid ${COLORS.danger}40`,
-                                    borderRadius: "10px",
-                                    fontSize: "0.9rem",
-                                    fontWeight: "600",
-                                    cursor: "pointer",
-                                    transition: "all 0.3s ease",
-                                    display: "flex",
-                                    alignItems: "center",
-                                    gap: "6px"
-                                }}
-                                onMouseEnter={(e) => {
-                                    e.target.style.background = COLORS.danger;
-                                    e.target.style.color = COLORS.white;
-                                    e.target.style.transform = "translateY(-1px)";
-                                    e.target.style.boxShadow = `0 4px 15px rgba(239, 68, 68, 0.4)`;
-                                }}
-                                onMouseLeave={(e) => {
-                                    e.target.style.background = "rgba(239, 68, 68, 0.1)";
-                                    e.target.style.color = COLORS.danger;
-                                    e.target.style.transform = "translateY(0)";
-                                    e.target.style.boxShadow = "none";
-                                }}
-                            >
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
-                                    <polyline points="16 17 21 12 16 7"></polyline>
-                                    <line x1="21" y1="12" x2="9" y2="12"></line>
-                                </svg>
-                                Logout
-                            </button>
-                        </div>
+                                gap: "6px"
+                            }}
+                        >
+                            Logout
+                        </button>
                     </nav>
 
                     {/* Mobile Menu Button */}
                     <button
+                        className="mobile-menu-btn"
                         onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                         style={{
-                            display: "none", // Hidden on desktop
-                            background: "transparent",
-                            border: "none",
+                            display: "none",
+                            background: "rgba(255,255,255,0.05)",
+                            border: "1px solid rgba(255,255,255,0.1)",
                             color: COLORS.white,
-                            fontSize: "1.5rem",
+                            fontSize: "1.2rem",
                             cursor: "pointer",
-                            padding: "8px"
+                            padding: "8px",
+                            borderRadius: "10px",
+                            width: "40px",
+                            height: "40px",
+                            display: "none", // Will be shown by media query
+                            alignItems: "center",
+                            justifyContent: "center"
                         }}
                     >
                         {mobileMenuOpen ? "✕" : "☰"}
@@ -291,12 +243,20 @@ function Layout() {
 
                 {/* Mobile Navigation Dropdown */}
                 {mobileMenuOpen && (
-                    <div style={{
-                        display: "none", // Show on mobile via media query
-                        padding: "20px",
-                        background: "rgba(5, 8, 17, 0.95)",
+                    <div className="mobile-nav-dropdown" style={{
+                        position: "absolute",
+                        top: "100%",
+                        left: 0,
+                        right: 0,
+                        background: "rgba(10, 14, 26, 0.98)",
                         backdropFilter: "blur(20px)",
-                        borderTop: "1px solid rgba(255,255,255,0.1)"
+                        borderBottom: `1px solid rgba(4, 86, 172, 0.3)`,
+                        padding: "20px",
+                        display: "flex",
+                        flexDirection: "column",
+                        gap: "10px",
+                        boxShadow: "0 10px 30px rgba(0,0,0,0.5)",
+                        animation: "slideDown 0.3s ease-out"
                     }}>
                         {navItems.map((item) => (
                             <button
@@ -307,21 +267,21 @@ function Layout() {
                                 }}
                                 style={{
                                     width: "100%",
-                                    padding: "15px",
-                                    background: isActive(item.path) ? `rgba(4, 86, 172, 0.3)` : "transparent",
-                                    border: "none",
+                                    padding: "14px 20px",
+                                    background: isActive(item.path) ? `rgba(4, 86, 172, 0.2)` : "rgba(255,255,255,0.03)",
+                                    border: `1px solid ${isActive(item.path) ? COLORS.primary : "rgba(255,255,255,0.05)"}`,
                                     color: isActive(item.path) ? COLORS.white : COLORS.gray,
                                     fontSize: "1rem",
                                     textAlign: "left",
                                     cursor: "pointer",
-                                    borderRadius: "10px",
-                                    marginBottom: "8px",
+                                    borderRadius: "12px",
                                     display: "flex",
                                     alignItems: "center",
-                                    gap: "12px"
+                                    gap: "12px",
+                                    transition: "all 0.2s ease"
                                 }}
                             >
-                                <span>{item.icon}</span>
+                                <span style={{ fontSize: "1.2rem" }}>{item.icon}</span>
                                 {item.label}
                             </button>
                         ))}
@@ -329,35 +289,31 @@ function Layout() {
                             onClick={handleLogout}
                             style={{
                                 width: "100%",
-                                padding: "15px",
-                                background: "rgba(239, 68, 68, 0.2)",
-                                border: "none",
+                                padding: "14px 20px",
+                                background: "rgba(239, 68, 68, 0.1)",
+                                border: `1px solid rgba(239, 68, 68, 0.3)`,
                                 color: COLORS.danger,
                                 fontSize: "1rem",
                                 textAlign: "left",
                                 cursor: "pointer",
-                                borderRadius: "10px",
-                                marginTop: "10px",
+                                borderRadius: "12px",
+                                marginTop: "5px",
                                 display: "flex",
                                 alignItems: "center",
                                 gap: "12px",
                                 fontWeight: "600"
                             }}
                         >
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
-                                <polyline points="16 17 21 12 16 7"></polyline>
-                                <line x1="21" y1="12" x2="9" y2="12"></line>
-                            </svg>
+                            <span style={{ fontSize: "1.2rem" }}>🚪</span>
                             Logout
                         </button>
                     </div>
                 )}
             </header>
 
-            {/* Main Content with Top Padding for Fixed Header */}
+            {/* Main Content */}
             <main style={{
-                paddingTop: "100px",
+                paddingTop: "80px",
                 position: "relative",
                 zIndex: 1,
                 minHeight: "100vh"
@@ -365,17 +321,33 @@ function Layout() {
                 <Outlet />
             </main>
 
-            {/* Add responsive styles */}
             <style>{`
-                @media (max-width: 968px) {
-                    header nav {
+                @keyframes slideDown {
+                    from { opacity: 0; transform: translateY(-10px); }
+                    to { opacity: 1; transform: translateY(0); }
+                }
+
+                @media (max-width: 850px) {
+                    .desktop-nav {
                         display: none !important;
                     }
-                    header button[onClick*="mobileMenuOpen"] {
-                        display: block !important;
+                    .mobile-menu-btn {
+                        display: flex !important;
                     }
-                    header div[style*="mobileMenuOpen"] {
-                        display: block !important;
+                    header > div {
+                        padding: 12px 20px !important;
+                    }
+                    .hide-mobile {
+                        display: none !important;
+                    }
+                    .logo-text-container h1 {
+                        font-size: 1.2rem !important;
+                    }
+                }
+
+                @media (max-width: 480px) {
+                    header > div {
+                        padding: 12px 15px !important;
                     }
                 }
             `}</style>
